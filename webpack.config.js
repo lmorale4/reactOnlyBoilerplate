@@ -1,4 +1,4 @@
-const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { resolve } = require('path');
 
 const parentDir = __dirname;
@@ -6,8 +6,9 @@ const parentDir = __dirname;
 module.exports = {
   entry: ['babel-polyfill', './client/index.js'],
   output: {
+    publicPath: parentDir + '/public',
     path: parentDir,
-    filename: './bundle.js',
+    filename: './public/bundle.js',
   },
   mode: 'development',
   module: {
@@ -20,4 +21,10 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    // Array of plugins to apply to build chunk
+    new HtmlWebpackPlugin({
+      template: __dirname + '/public/index.html',
+    }),
+  ],
 };
